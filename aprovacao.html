@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprovação de Horas Extras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .info-box {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .info-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        .botoes {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-aprovar {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-reprovar {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aprovação de Horas Extras</h1>
+    
+    <div class="info-box">
+        <h2>Detalhes da Solicitação</h2>
+        <p><span class="info-label">Funcionário:</span> <span id="nome"></span></p>
+        <p><span class="info-label">Departamento:</span> <span id="departamento"></span></p>
+        <p><span class="info-label">Data:</span> <span id="data"></span></p>
+        <p><span class="info-label">Período:</span> <span id="periodo"></span></p>
+        <p><span class="info-label">Total de Horas:</span> <span id="totalHoras"></span></p>
+        <p><span class="info-label">Justificativa:</span> <span id="justificativa"></span></p>
+    </div>
+    
+    <form action="https://formspree.io/f/xvggdowv" method="POST">
+        <input type="hidden" name="_subject" value="Resposta: Aprovação de Horas Extras">
+        <input type="hidden" name="_replyto" value="administrativo1@ibcacau.com.br">
+        <input type="hidden" name="_next" value="https://ibcacau.github.io/Horas-Extras-/sucesso.html">
+        
+        <div class="form-group">
+            <label for="parecer">Parecer:</label>
+            <textarea id="parecer" name="parecer" rows="4" required></textarea>
+        </div>
+
+        <div class="botoes">
+            <button type="submit" name="decisao" value="aprovado" class="btn-aprovar">Aprovar Solicitação</button>
+            <button type="submit" name="decisao" value="reprovado" class="btn-reprovar">Reprovar Solicitação</button>
+        </div>
+    </form>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            document.getElementById('nome').textContent = urlParams.get('nome') || '';
+            document.getElementById('departamento').textContent = urlParams.get('departamento') || '';
+            document.getElementById('data').textContent = urlParams.get('data') || '';
+            document.getElementById('periodo').textContent = `${urlParams.get('horaInicio') || ''} às ${urlParams.get('horaFim') || ''}`;
+            document.getElementById('totalHoras').textContent = `${urlParams.get('totalHoras') || ''} horas`;
+            document.getElementById('justificativa').textContent = urlParams.get('justificativa') || '';
+        }
+    </script>
+</body>
+</html>
